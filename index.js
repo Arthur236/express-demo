@@ -6,6 +6,7 @@
 // Import express module
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 // Initialize expree module
 const app = express();
@@ -62,6 +63,17 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/static', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
+
+// Adding support for post data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
+// Process posted data
+app.post('/posts', (req, res) => {
+  console.log('Data posted: ', req.body);
 });
 
 
